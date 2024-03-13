@@ -1,1 +1,1 @@
-consolelog('Hello World!');
+consolelog('Omg Hayyyy :3');
