@@ -6,19 +6,18 @@ const port = 8080;
 app.use(express.json());
 
 // Home endpoint
-app.get('/', (req, res) => {
-    res.send('Hello, World!');
+app.get('/live', (req, res) => {
+    res.json({ message: 'Vivo!' });
 });
 
 // Sample GET endpoint
-app.get('/api/hello', (req, res) => {
-    res.json({ message: 'Hello from the API!' });
+app.get('/ready', (req, res) => {
+    res.json({ message: 'Pronto!' });
 });
 
-// Sample POST endpoint
-app.post('/api/data', (req, res) => {
-    const data = req.body;
-    res.json({ receivedData: data });
+// Sample GET endpoint
+app.get('/started', (req, res) => {
+    res.json({ message: 'Iniciado!' });
 });
 
 // Start the server

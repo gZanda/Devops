@@ -1,23 +1,41 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodeserver
+  name: probes
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nodeserver
+      app: probes
   template:
     metadata:
       labels:
-        app: nodeserver
+        app: probes
     spec:
       containers:
-      - name: nodeserver
-        image: gzanda/node:v0
+      - name: probes
+        image: gzanda/nodeapp:v2
         resources:
           limits:
             memory: "128Mi"
             cpu: "500m"
         ports:
         - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /live
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        startupProbe:
+          httpGet:
+            path: /started
+            port: 8080
+          failureThreshold: 30
+          periodSeconds: 10
