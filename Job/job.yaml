@@ -1,0 +1,12 @@
+apiVersion: batch/v1
+kind: job
+metadata:
+  name: contador-job
+spec:
+  ttlSecondsAfterFinished: 60
+  template:
+    spec:
+    - name: contador-job
+      image: busybox
+      command: ["sh", "-c", "for i in 1 2 3 4 5; do echo $i; sleep 1; done"]
+    restartPolicy: Never
