@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: print-datetime-cronjob
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 180
+      template:
+        spec:
+          containers:
+          - name: print-datetime
+            image: busybox
+            command: ["sh", "-c", "date"]
+          restartPolicy: Never
+
+

@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: clean-completed-pods-cronjob
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 360
+      template:
+        spec:
+          containers:
+          - name: clean-completed-pods
+            image: bitnami/kubectl:latest
+            command:
+            - /bin/sh
+            - -c
+            - "kubectl delete pod --field-selector=status.phase==Succeeded"
+          restartPolicy: Never
+
+
+
